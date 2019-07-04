@@ -1,14 +1,14 @@
 const db = {
     users: [
         {
-            userId: 'wAvxSbCTNMg7tzNh08dUPAphYw22',
-            email: 'user@email.com',
-            handle: 'user',
-            createdAt: '2019-06-27T15:51:50.921Z',
-            imageUrl: 'image/abc/abc',
-            bio: 'Hello, my name is user, nice to meet you.',
-            website: 'https://user.com',
-            location: 'Toronto, ON'
+            userId    : 'wAvxSbCTNMg7tzNh08dUPAphYw22',
+            email     : 'user@email.com',
+            handle    : 'user',
+            createdAt : '2019-06-27T15:51:50.921Z',
+            imageUrl  : 'image/abc/abc',
+            bio       : 'Hello, my name is user, nice to meet you.',
+            website   : 'https://user.com',
+            location  : 'Toronto, ON'
         }
     ],
     screams: [
@@ -22,10 +22,20 @@ const db = {
     ],
     comments: [
         {
-            userHandle: 'user',
-            screamId: 'FvvOjIAklkHN6q0mfVpf',
-            body: 'nice one mate!',
-            createdAt: '2019-06-27T02:11:07.404Z'
+            userHandle : 'user',
+            screamId   : 'FvvOjIAklkHN6q0mfVpf',
+            body       : 'nice one mate!',
+            createdAt  : '2019-06-27T02:11:07.404Z'
+        }
+    ],
+    notifications: [
+        {
+            recipient : 'user',
+            sender    : 'john',
+            read      : 'true | false',
+            screamId  : 'FvvOjIAklkHN6q0mfVpf',
+            type      : 'like | comment',
+            createdAt : '2019-06-27T02:11:07.404Z'
         }
     ]
 };
@@ -33,23 +43,19 @@ const db = {
 const userDetails = {
     //Redux data
     credentials: {
-        userId: 'wAvxSbCTNMg7tzNh08dUPAphYw22',
-            email: 'user@email.com',
-            handle: 'user',
-            createdAt: '2019-06-27T15:51:50.921Z',
-            imageUrl: 'image/abc/abc',
-            bio: 'Hello, my name is user, nice to meet you.',
-            website: 'https://user.com',
-            location: 'Toronto, ON'
+        userId    : 'wAvxSbCTNMg7tzNh08dUPAphYw22',
+        email     : 'user@email.com',
+        handle    : 'user',
+        createdAt : '2019-06-27T15:51:50.921Z',
+        imageUrl  : 'image/abc/abc',
+        bio       : 'Hello, my name is user, nice to meet you.',
+        website   : 'https://user.com',
+        location  : 'Toronto, ON'
     },
     likes: [
         {
-            userHandle: 'user',
-            screamId: 'FvvOjIAklkHN6q0mfVpf'
-        },
-        {
-            userHandle: 'user',
-            screamId: 'J9SowjiyeViXY9qMUP0s'
+            userHandle : 'user',
+            screamId   : 'FvvOjIAklkHN6q0mfVpf'
         }
     ]
 };
