@@ -179,4 +179,4 @@ exports.onScreamDeleted = functions
             .catch(err => {
                 console.error(err);
             });
-    })
+    });
