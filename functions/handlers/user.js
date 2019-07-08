@@ -40,7 +40,7 @@ exports.signup = (req, res) => {
         })
         .then(data => {
             token = data;
-            const userCredantials = {
+            const userCredentials = {
                 handle: newUser.handle,
                 email: newUser.handle,
                 createdAt: new Date().toISOString(),
@@ -50,7 +50,7 @@ exports.signup = (req, res) => {
 
             return db
                 .doc(`/users/${ newUser.handle }`)
-                .set(userCredantials);
+                .set(userCredentials);
         })
         .then(() => {
             return res.status(201).json({ token });
@@ -237,7 +237,7 @@ exports.getAuthenticateUser = (req, res) => {
         .get()
         .then(doc => {
             if (doc.exists) {
-                userData.credantials = doc.data();
+                userData.credentials = doc.data();
                 
                 return db
                     .collection('likes')
