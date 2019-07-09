@@ -100,7 +100,7 @@ exports.deleteScream = (req, res) => {
                 return res.status(404).json({ error: 'Scream not found.'});
             }
 
-            if (doc.data().userHandle != req.user.handle) {
+            if (doc.data().userHandle !== req.user.handle) {
                 return res.status(403).json({ error: 'Unauthorized'});
             } else {
                 return document.delete();
@@ -121,11 +121,11 @@ exports.commentOnScream = (req, res) => {
         return res.status(400).json({ comment: 'Must not be empty'});
 
     const newComment = {
-        body: req.body.body,
-        createdAt: new Date().toISOString(),
-        screamId: req.params.screamId,
-        userHandle: req.user.handle,
-        userImage: req.user.imageUrl
+        body       : req.body.body,
+        createdAt  : new Date().toISOString(),
+        screamId   : req.params.screamId,
+        userHandle : req.user.handle,
+        userImage  : req.user.imageUrl
     };
 
     db
@@ -152,7 +152,7 @@ exports.commentOnScream = (req, res) => {
         })
         .catch(err => {
             console.error(err);
-            return res.status(500).json({ error: err.code || 'Something went wrong' });
+            return res.status(500).json({ error: 'Something went wrong' });
         });
 };
 
@@ -245,7 +245,7 @@ exports.unlikeScream = (req, res) => {
                         screamData.likeCount--;
                         
                         return screamDocument.update({
-                            likeCount: screamData.likeCount || 0
+                            likeCount: screamData.likeCount
                         });
                     })
                     .then(() => {

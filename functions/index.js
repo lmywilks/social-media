@@ -1,12 +1,12 @@
 const functions = require('firebase-functions');
 const app = require('express')();
+const FBAuth = require('./util/fbAuth');
 
 const cors = require('cors');
 app.use(cors());
 
 const { db } = require('./util/admin');
 
-const FBAuth = require('./util/fbAuth');
 const { 
     getAllScreams, 
     postOneScream,
@@ -55,22 +55,23 @@ exports.createNotificationOnLike = functions
             .doc(`/screams/${ snapshot.data().screamId }`)
             .get()
             .then(doc => {
-                if (doc.exists && doc.data().userHandle !== snapshot.data().userHandle) {
+                if (
+                    doc.exists && 
+                    doc.data().userHandle !== snapshot.data().userHandle
+                ) {
                     return db
                         .doc(`/notifications/${ snapshot.id }`)
                         .set({
-                            createdAt: new Date().toISOString(),
-                            recipient: doc.data().userHandle,
-                            sender: snapshot.data().userHandle,
-                            type: 'like',
-                            read: false,
-                            screamId: doc.id
+                            createdAt : new Date().toISOString(),
+                            recipient : doc.data().userHandle,
+                            sender    : snapshot.data().userHandle,
+                            type      : 'like',
+                            read      : false,
+                            screamId  : doc.id
                         });
                 }
             })
-            .catch(err => {
-                console.error(err);
-            });
+            .catch(err => console.error(err));
     });
 
 exports.deleteNotificationOnUnlike = functions
@@ -81,9 +82,7 @@ exports.deleteNotificationOnUnlike = functions
         return db
             .doc(`/notifications/${ snapshot.id }`)
             .delete()
-            .catch(err => {
-                console.error(err);
-            });
+            .catch(err => console.error(err));
     });
 
 exports.createNotificationOnComment = functions
@@ -95,32 +94,32 @@ exports.createNotificationOnComment = functions
             .doc(`/screams/${ snapshot.data().screamId }`)
             .get()
             .then(doc => {
-                if (doc.exists && doc.data().userHandle !== snapshot.data().userHandle) {
+                if (
+                    doc.exists && 
+                    doc.data().userHandle !== snapshot.data().userHandle
+                ) {
                     return db
                         .doc(`/notifications/${ snapshot.id }`)
                         .set({
-                            createdAt: new Date().toISOString(),
-                            recipient: doc.data().userHandle,
-                            sender: snapshot.data().userHandle,
-                            type: 'comment',
-                            read: false,
-                            screamId: doc.id
+                            createdAt : new Date().toISOString(),
+                            recipient : doc.data().userHandle,
+                            sender    : snapshot.data().userHandle,
+                            type      : 'comment',
+                            read      : false,
+                            screamId  : doc.id
                         });
                 }
             })
-            .catch(err => {
-                console.error(err);
-            });
+            .catch(err => console.error(err));
     });
 
 exports.onUserImageChange = functions
     .region('us-east1')
     .firestore
-    .document('users/{userId}')
+    .document('/users/{userId}')
     .onUpdate(change => {
-        
         if (change.before.data().imageUrl !== change.after.data().imageUrl) {
-            let batch = db.batch();
+            const batch = db.batch();
         
             return db.
                 collection('screams')
@@ -134,18 +133,15 @@ exports.onUserImageChange = functions
     
                     return batch.commit();
                 });
-        } else {
-            return true;
-        }
+        } else return true;
     });
 
 exports.onScreamDeleted = functions
     .region('us-east1')
     .firestore
-    .document('screams/{screamId}')
+    .document('/screams/{screamId}')
     .onDelete((snapshot, context) => {
         const screamId = context.params.screamId;
-
         const batch = db.batch();
 
         return db
@@ -179,7 +175,5 @@ exports.onScreamDeleted = functions
 
                 return batch.commit();
             })
-            .catch(err => {
-                console.error(err);
-            });
+            .catch(err => console.error(err));
     });

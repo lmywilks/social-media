@@ -1,9 +1,10 @@
-const firebase = require('firebase');
+const { admin, db } = require('../util/admin');
+
 const config = require('../util/config');
 
+const firebase = require('firebase');
 firebase.initializeApp(config);
 
-const { admin, db } = require('../util/admin');
 const { validateSignupData, validateLoginData, reduceUserDetails } = require('../util/validators');
 
 // Sign users up
@@ -38,13 +39,13 @@ exports.signup = (req, res) => {
             userId = data.user.uid;
             return data.user.getIdToken();
         })
-        .then(data => {
-            token = data;
+        .then(idToken => {
+            token = idToken;
             const userCredentials = {
-                handle: newUser.handle,
-                email: newUser.handle,
-                createdAt: new Date().toISOString(),
-                imageUrl: `https://firebasestorage.googleapis.com/v0/b/${ config.storageBucket }/o/${ noImg }?alt=media`,
+                handle    : newUser.handle,
+                email     : newUser.email,
+                createdAt : new Date().toISOString(),
+                imageUrl  : `https://firebasestorage.googleapis.com/v0/b/${ config.storageBucket }/o/${ noImg }?alt=media`,
                 userId
             };
 
@@ -188,7 +189,7 @@ exports.getUserDetails = (req, res) => {
                     .orderBy('createdAt', 'desc')
                     .get();
             } else {
-                return res.status(401).json({ message: 'User not found.'})
+                return res.status(404).json({ error: 'User not found.'})
             }
         })
         .then(data => {
@@ -243,8 +244,6 @@ exports.getAuthenticateUser = (req, res) => {
                     .collection('likes')
                     .where('userHandle', '==', req.user.handle)
                     .get();
-            } else {
-                return res.status(401).json({ message: 'User not found.'})
             }
         })
         .then(data => {
