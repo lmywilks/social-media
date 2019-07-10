@@ -1,9 +1,9 @@
 module.exports = {
-    "apiKey": "AIzaSyCieyBC4zyjpRmXta22WP4Ejzx1XYrUAOk",
-    "authDomain": "socialmedia-ec698.firebaseapp.com",
-    "databaseURL": "https://socialmedia-ec698.firebaseio.com",
-    "projectId": "socialmedia-ec698",
-    "storageBucket": "socialmedia-ec698.appspot.com",
-    "messagingSenderId": "326163846018",
-    "appId": "1:326163846018:web:6a7cb299f1015bb6"
-};
+    apiKey: "AIzaSyD6ShODiqziNHPh2R_EGSFjoc_GCrFev-k",
+    authDomain: "social-app-58c7f.firebaseapp.com",
+    databaseURL: "https://social-app-58c7f.firebaseio.com",
+    projectId: "social-app-58c7f",
+    storageBucket: "social-app-58c7f.appspot.com",
+    messagingSenderId: "1074927694279",
+    appId: "1:1074927694279:web:e8992312d3683908"
+  };
